@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios' ;
+import Product from './product';
+//import 'bootstrap/dist/css/bootstrap.min.css';
+import { Container, Row } from 'react-bootstrap';
 
 
 const Products = () => {
@@ -16,15 +19,18 @@ const Products = () => {
    
   }, []) ;
 
-  const product = products[0] ;
+  
   
 
   return (
     <>
-      <section>
-      <section>Title : {product?.title}</section>
-      <section>Price : {product?.price}</section>
-    </section>
+    <Container fluid>
+      <Row>
+        {products.map(product => <Product product={product} key={product.id} />)}
+      </Row>
+    </Container>
+      
+      
     </>
   )
 }
