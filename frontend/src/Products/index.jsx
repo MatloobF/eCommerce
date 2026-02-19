@@ -24,6 +24,7 @@ const Products = () => {
 
   return (
     <>
+    <p>welcome</p>
     <Container fluid>
       <Row>
         {products.map(product => <Product product={product} key={product.id} />)}
