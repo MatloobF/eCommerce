@@ -5,8 +5,7 @@ import './App.css'
 import Products from './Products'
 
 function App() {
-  // const [count, setCount] = useState(0);
-  // <p>welcomeTO</p>
+ 
 
   return (
     <>
