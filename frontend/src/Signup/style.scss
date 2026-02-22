@@ -1,7 +1,1 @@
 
-@use '../common' as common;
-
-
-.login-card {
-    @include common.card-shadow();
-}
