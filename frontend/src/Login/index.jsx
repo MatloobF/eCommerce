@@ -3,6 +3,48 @@ import './style.scss' ;
 import { Card, CardBody, CardFooter, CardHeader, FormGroup, FormLabel, FormControl, Container, Col, Row} from 'react-bootstrap';
 
 const Login = () => {
+    const isLoggedIn = useIsLoggedIn();
+
+    const {state} = useLocation();
+    const navigate = useNavigate();
+    const {makeRequest: loginRequest} = useApi(ENDPOINTS.USER.LOGIN, REQUEST_TYPES.POST) ; 
+    const { makeRequest: resetPasswordRequest } = useApi(ENDPOINTS.USER.RESET_PASSWORD, REQUEST_TYPES.PATCH);
+
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [otp, setOtp] = useState("");
+
+    const [showResetForm, setShowResetForm] = useState(false);
+
+
+    const onLogin = async () => {
+        const payload = { username, password };
+        // const response = await axiosInstance.post(ENDPOINTS.USER.LOGIN, payload);
+        await loginRequest(payload);
+        setPassword('')
+        setUsername('')
+    }
+
+    const onResetPassword = async () => {
+        const payload = { username, otp, newPassword: password };
+        await resetPasswordRequest(payload, { updateUser: false });
+        setShowResetForm(false);
+        setPassword('')
+        setUsername('')
+        setOtp('')
+    }
+
+    useEffect(() => {
+        if (isLoggedIn && state) {
+            console.log("🚀 ~ Login ~ state:", state)
+            navigate(state, { replace: true })
+
+        }
+    }, [isLoggedIn, state])
+
+    const isValid = username && password;
+
+
   return (
     <>
     <Container fluid>
